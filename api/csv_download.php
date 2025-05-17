@@ -1,5 +1,5 @@
 <?php
-require_once '../db.php';
+require_once '../app.php';
 
 // ヘッダー：ダウンロード用にCSV形式を指定
 header('Content-Type: text/csv; charset=utf-8');

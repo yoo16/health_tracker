@@ -1,3 +1,6 @@
+// 起動
+renderCharts();
+
 // データ取得関数（共通）
 async function fetchHealthData() {
     const response = await fetch('api/health.php');
@@ -7,12 +10,16 @@ async function fetchHealthData() {
 
 // 体重グラフ
 function renderWeightChart(data) {
+    // グラフのラベル
     const labels = data.map(item => item.recorded_at);
+    // 体重データ
     const weights = data.map(item => parseFloat(item.weight));
 
+    // 体重データの最小値と最大値を取得
     const minWeight = Math.min(...weights);
     const maxWeight = Math.max(...weights);
 
+    // 体重グラフの描画
     new Chart(document.getElementById('weightChart').getContext('2d'), {
         type: 'line',
         data: {
@@ -20,7 +27,7 @@ function renderWeightChart(data) {
             datasets: [{
                 label: '体重 (kg)',
                 data: weights,
-                borderColor: 'rgb(43, 103, 135)',
+                borderColor: 'rgb(137, 201, 235)',
                 borderWidth: 2,
                 fill: false,
                 tension: 0.3,
@@ -65,7 +72,7 @@ function renderHeartRateChart(data) {
             datasets: [{
                 label: '心拍数 (bpm)',
                 data: heartRates,
-                borderColor: 'rgba(220, 38, 38, 1)',
+                borderColor: 'rgb(249, 150, 150)',
                 borderWidth: 2,
                 fill: false,
                 tension: 0.3,
@@ -174,10 +181,11 @@ function renderBloodPressureChart(data) {
                             type: 'box',
                             yMin: 140,
                             yMax: 200,
-                            backgroundColor: 'rgba(255, 99, 132, 0.15)',
+                            backgroundColor: 'rgba(201, 135, 149, 0.15)',
                             borderWidth: 0,
                             label: {
                                 content: '高血圧域',
+                                color: 'red',
                                 enabled: true,
                                 position: 'start'
                             }
@@ -190,6 +198,7 @@ function renderBloodPressureChart(data) {
                             borderWidth: 0,
                             label: {
                                 content: '低血圧域',
+                                color: 'blue',
                                 enabled: true,
                                 position: 'end'
                             }
@@ -236,7 +245,7 @@ async function renderCharts() {
 function downloadChart() {
     const canvasIds = ['weightChart', 'heartRateChart', 'bpChart'];
     const canvases = canvasIds.map(id => document.getElementById(id));
-    
+
     const width = Math.max(...canvases.map(c => c.width));
     const height = canvases.reduce((sum, c) => sum + c.height, 0);
 
@@ -244,13 +253,17 @@ function downloadChart() {
     combinedCanvas.width = width;
     combinedCanvas.height = height;
     const ctx = combinedCanvas.getContext('2d');
+
+    // 白背景で塗りつぶし
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
 
     let y = 0;
     canvases.forEach(canvas => {
-        ctx.drawImage(canvas, 0, y);
-        y += canvas.height;
+        if (canvas) {
+            ctx.drawImage(canvas, 0, y);
+            y += canvas.height;
+        }
     });
 
     const link = document.createElement('a');
@@ -258,7 +271,3 @@ function downloadChart() {
     link.download = 'health_chart.png';
     link.click();
 }
-
-
-// 起動
-renderCharts();

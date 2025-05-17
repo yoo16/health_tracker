@@ -1,5 +1,6 @@
 <?php
-require_once 'db.php';
+// 共通処理を読み込む
+require_once 'app.php';
 
 // GETリクエストからIDを取得
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;

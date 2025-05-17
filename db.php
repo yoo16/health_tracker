@@ -1,5 +1,4 @@
 <?php
-require_once 'env.php';
 $connection = DB_CONNECTION;
 $host = DB_HOST;
 $name = DB_NAME;

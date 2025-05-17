@@ -1,7 +1,11 @@
 <?php
+require_once 'env.php';
 require_once 'db.php';
+
 $sql = "SELECT * FROM health_records ORDER BY recorded_at DESC";
-$records = $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="ja">

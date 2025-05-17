@@ -1,5 +1,10 @@
 <?php
-require_once 'db.php';
+// 共通処理を読み込む
+require_once 'app.php';
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    exit;
+}
 
 $posts = $_POST;
 

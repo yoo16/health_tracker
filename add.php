@@ -1,6 +1,6 @@
 <?php
-// セッションの開始
-session_start();
+// 共通処理を読み込む
+require_once 'app.php';
 
 // 初期値
 $form = [

@@ -1,3 +1,7 @@
+<?php
+require_once 'app.php';
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -9,7 +13,7 @@
     <main class="container mx-auto">
         <!-- ダウンロード -->
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold">健康記録</h1>
+            <h1 class="text-2xl font-bold"><?= SITE_TITLE ?></h1>
             <button onclick="downloadChart()" class="bg-green-600 text-xs text-white px-4 py-2 rounded">
                 グラフダウンロード
             </button>
