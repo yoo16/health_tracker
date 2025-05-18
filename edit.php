@@ -25,45 +25,49 @@ if (!$record) {
 <body>
     <?php include 'components/nav.php' ?>
 
-    <main class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-6">健康記録-編集</h1>
-        <form action="update.php" method="post" class="space-y-4">
-            <input type="hidden" name="id" value="<?= $record['id'] ?>">
-            <div>
-                <label class="block mb-1 font-semibold">体重（kg）</label>
-                <input type="number" name="weight" step="0.1" required
-                    value="<?= $record['weight'] ?>"
-                    class="w-full border p-2 rounded">
+    <main class="container mx-auto w-1/2">
+        <h1 class="text-2xl font-bold mb-6 text-gray-500">記録編集</h1>
+        <form action="update.php" method="post">
+            <div class="text-gray-500 text-sm space-y-4">
+                <!-- id を送信 -->
+                <input type="hidden" name="id" value="<?= $record['id'] ?>">
+
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">記録日</label>
+                    <input type="date" name="recorded_at" required
+                        value="<?= $record['recorded_at'] ?>"
+                        class="w-full border p-2 rounded">
+                </div>
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">体重（kg）</label>
+                    <input type="number" name="weight" step="0.1" required
+                        value="<?= $record['weight'] ?>"
+                        class="w-full border p-2 rounded">
+                </div>
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">心拍数（bpm）</label>
+                    <input type="number" name="heart_rate" required
+                        value="<?= $record['heart_rate'] ?>"
+                        class="w-full border p-2 rounded">
+                </div>
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">血圧（上）</label>
+                    <input type="number" name="systolic" required
+                        class="w-full border p-2 rounded"
+                        value="<?= $record['systolic'] ?>">
+                </div>
+                <div>
+                    <label class="block mb-1 text-green-600">血圧（下）</label>
+                    <input type="number" name="diastolic" required
+                        class="w-full border p-2 rounded"
+                        value="<?= $record['diastolic'] ?>">
+                </div>
             </div>
-            <div>
-                <label class="block mb-1 font-semibold">心拍数（bpm）</label>
-                <input type="number" name="heart_rate" required
-                    value="<?= $record['heart_rate'] ?>"
-                    class="w-full border p-2 rounded">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">血圧（上）</label>
-                <input type="number" name="systolic" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $record['systolic'] ?>">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">血圧（下）</label>
-                <input type="number" name="diastolic" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $record['diastolic'] ?>">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">記録日</label>
-                <input type="date" name="recorded_at" required
-                    value="<?= $record['recorded_at'] ?>"
-                    class="w-full border p-2 rounded">
-            </div>
-            <div class="flex justify-between">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <div class="flex justify-between mt-6 text-sm">
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-700">
                     更新
                 </button>
-                <a href="./" class="block text-gray-600 px-4 py-2 hover:text-gray-800 border rounded">戻る</a>
+                <a href="history.php" class="block text-green-600 px-4 py-2 border border-green-600 rounded">キャンセル</a>
             </div>
         </form>
 
@@ -73,7 +77,9 @@ if (!$record) {
                 削除
             </button>
         </form>
-    </div>
+    </main>
+
+    <?php include 'components/footer.php'; ?>
 </body>
 
 </html>

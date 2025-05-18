@@ -3,7 +3,7 @@
 require_once 'app.php';
 
 // 初期値
-$form = [
+$record = [
     'weight' => 50,
     'heart_rate' => 80,
     'systolic' => 120,
@@ -11,15 +11,20 @@ $form = [
     'recorded_at' => date('Y-m-d'),
 ];
 
+// 初期メッセージ
+$message = '';
+
+// セッションから値を取得
 if (isset($_SESSION['form'])) {
-    // セッションから値を取得
-    $form = $_SESSION['form'];
+    $record = $_SESSION['form'];
+    unset($_SESSION['form']);
 }
 
 // エラーメッセージの取得
-$message = $_SESSION['message'] ?? '';
-// セッションからエラーメッセージを削除
-unset($_SESSION['form'], $_SESSION['message']);
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    unset($_SESSION['message']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -30,8 +35,8 @@ unset($_SESSION['form'], $_SESSION['message']);
 <body>
     <?php include 'components/nav.php' ?>
 
-    <main class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-6">健康記録-追加</h1>
+    <main class="container mx-auto w-1/2">
+        <h1 class="text-2xl font-bold mb-6 text-gray-500">新規記録</h1>
         <!-- メッセージ -->
         <?php if ($message): ?>
             <div class="mb-4 bg-red-100 text-red-700 px-4 py-2 rounded">
@@ -40,44 +45,48 @@ unset($_SESSION['form'], $_SESSION['message']);
         <?php endif; ?>
 
         <form action="insert.php" method="post" class="space-y-4">
-            <div>
-                <label class=" block mb-1 font-semibold">記録日</label>
-                <input type="date" name="recorded_at" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $form['recorded_at'] ?>">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">体重（kg）</label>
-                <input type="number" name="weight" step="0.1" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $form['weight'] ?>">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">心拍数</label>
-                <input type="number" name="heart_rate" step="1" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $form['heart_rate'] ?>">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">血圧（上）</label>
-                <input type="number" name="systolic" step="1" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $form['systolic'] ?>">
-            </div>
-            <div>
-                <label class="block mb-1 font-semibold">血圧（下）</label>
-                <input type="number" name="diastolic" step="1" required
-                    class="w-full border p-2 rounded"
-                    value="<?= $form['diastolic'] ?>">
-            </div>
-            <div class="flex justify-between">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    登録
-                </button>
-                <a href="history.php" class="block text-gray-600 px-4 py-2 hover:text-gray-800 border rounded">戻る</a>
+            <div class="text-gray-500 text-sm space-y-4">
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">記録日</label>
+                    <input type="date" name="recorded_at" required
+                        value="<?= $record['recorded_at'] ?>"
+                        class="w-full border p-2 rounded">
+                </div>
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">体重（kg）</label>
+                    <input type="number" name="weight" step="0.1" required
+                        value="<?= $record['weight'] ?>"
+                        class="w-full border p-2 rounded">
+                </div>
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">心拍数（bpm）</label>
+                    <input type="number" name="heart_rate" required
+                        value="<?= $record['heart_rate'] ?>"
+                        class="w-full border p-2 rounded">
+                </div>
+                <div class="my-4">
+                    <label class="block mb-1 text-green-600">血圧（上）</label>
+                    <input type="number" name="systolic" required
+                        class="w-full border p-2 rounded"
+                        value="<?= $record['systolic'] ?>">
+                </div>
+                <div>
+                    <label class="block mb-1 text-green-600">血圧（下）</label>
+                    <input type="number" name="diastolic" required
+                        class="w-full border p-2 rounded"
+                        value="<?= $record['diastolic'] ?>">
+                </div>
+                <div class="flex justify-between mt-6">
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        登録
+                    </button>
+                    <a href="history.php" class="block text-green-600 px-4 py-2 border border-green-600 rounded">キャンセル</a>
+                </div>
             </div>
         </form>
-        </div>
+    </main>
+
+    <?php include 'components/footer.php'; ?>
 </body>
 
 </html>
