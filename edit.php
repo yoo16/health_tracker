@@ -2,19 +2,19 @@
 // 共通処理を読み込む
 require_once 'app.php';
 
-// GETリクエストからIDを取得
-$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+// TODO: GETリクエストから id を取得
+$id = $_GET['id'] ?? 0;
+
+// データベース接続
+$pdo = Database::getInstance();
 // health_recordsテーブルから該当レコードを取得
 $sql = "SELECT * FROM health_records WHERE id = :id";
+// プリペアドステートメントを作成
 $stmt = $pdo->prepare($sql);
 // SQLを実行
 $stmt->execute([':id' => $id]);
 // 結果を取得
 $record = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$record) {
-    header('Location: ./');
-}
 ?>
 
 <!DOCTYPE html>

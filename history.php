@@ -1,9 +1,14 @@
 <?php
 require_once 'app.php';
 
+// データベース接続
+$pdo = Database::getInstance();
+// SQLクエリ
 $sql = "SELECT * FROM health_records ORDER BY recorded_at DESC";
+// SQL実行
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
+// 結果を取得
 $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>

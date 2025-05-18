@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // POSTデータの取得
 $posts = $_POST;
 
+// データベース接続
+$pdo = Database::getInstance();
+
 // 重複チェック
 $sql = "SELECT id FROM health_records WHERE recorded_at = :recorded_at";
 $stmt = $pdo->prepare($sql);
