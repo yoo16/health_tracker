@@ -3,18 +3,36 @@
 require_once 'app.php';
 
 // TODO: GETリクエストから id を取得
-$id = $_GET['id'] ?? 0;
+$id = $_GET['id'] ?? null;
 
-// データベース接続
-$pdo = Database::getInstance();
-// health_recordsテーブルから該当レコードを取得
-$sql = "SELECT * FROM health_records WHERE id = :id";
-// プリペアドステートメントを作成
-$stmt = $pdo->prepare($sql);
-// SQLを実行
-$stmt->execute([':id' => $id]);
-// 結果を取得
-$record = $stmt->fetch(PDO::FETCH_ASSOC);
+// id を渡してレコードを取得
+$record = find($id);
+
+// 初期メッセージ
+$message = '';
+if (!$record) {
+    $message = '該当する記録が見つかりません。';
+}
+// セッションメッセージの取得
+if (isset($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+    unset($_SESSION['message']);
+}
+
+function find($id)
+{
+    // データベース接続
+    $pdo = Database::getInstance();
+    // TODO: health_recordsテーブルから該当レコードを取得
+    $sql = "SELECT * FROM health_records WHERE id = :id";
+    // プリペアドステートメントを作成
+    $stmt = $pdo->prepare($sql);
+    // SQLを実行
+    $stmt->execute([':id' => $id]);
+    // 結果を取得
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $record;
+}
 ?>
 
 <!DOCTYPE html>
@@ -27,9 +45,16 @@ $record = $stmt->fetch(PDO::FETCH_ASSOC);
 
     <main class="container mx-auto w-1/2">
         <h1 class="text-2xl font-bold mb-6 text-gray-500">記録編集</h1>
+        <!-- メッセージ -->
+        <?php if ($message): ?>
+            <div class="mb-4 bg-red-100 text-red-700 px-4 py-2 rounded">
+                <?= $message ?>
+            </div>
+        <?php endif; ?>
+
         <form action="update.php" method="post">
             <div class="text-gray-500 text-sm space-y-4">
-                <!-- id を送信 -->
+                <!-- TODO: id を送信 -->
                 <input type="hidden" name="id" value="<?= $record['id'] ?>">
 
                 <div class="my-4">

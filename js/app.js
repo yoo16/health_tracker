@@ -10,19 +10,22 @@ renderCharts();
 // データ取得関数（共通）
 async function fetchHealthData() {
     // APIのURLを指定
-    const url = '/api/health.php';
+    const url = 'api/health.php';
+    // Fetch APIを使用してデータを取得
     const response = await fetch(url);
-    if (!response.ok) {
-        message.innerText = '通信エラー';
+    if (!response || !response.ok) {
+        showMessage(`API通信エラー: ${url}`);
+        return;
     }
     try {
         // レスポンスのJSONをパース
         const data = await response.json();
         console.log(data);
+        return data;
     } catch (error) {
-        console.log('JSONパースエラー:', error);
+        showMessage('JSONパースエラー');
     }
-    message.innerText = 'APIデータ取得エラー';
+    showMessage('APIデータ取得エラー');
 }
 
 // 体重グラフ
@@ -38,14 +41,14 @@ function renderWeightChart(data) {
 
     // 体重グラフの描画
     new Chart(document.getElementById('weightChart').getContext('2d'), {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: '体重 (kg)',
                 data: weights,
-                borderColor: 'rgb(137, 201, 235)',
-                borderWidth: 2,
+                backgroundColor: 'rgba(36, 101, 166, 0.6)',
+                borderWidth: 0,
                 fill: false,
                 tension: 0.3,
             }]
@@ -287,4 +290,13 @@ function downloadChart() {
     link.href = combinedCanvas.toDataURL('image/png');
     link.download = 'health_chart.png';
     link.click();
+}
+
+function showMessage(msg) {
+    message.classList.remove('hidden');
+    message.innerText = msg;
+    setTimeout(() => {
+        message.classList.add('hidden');
+        message.innerText = '';
+    }, 3000);
 }

@@ -9,35 +9,53 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 // POSTデータの取得
 $posts = $_POST;
 
-// データベース接続
-$pdo = Database::getInstance();
+// セッション(form)で入力値を保持
+$_SESSION['form'] = $posts;
 
-// 重複チェック
-$sql = "SELECT id FROM health_records WHERE recorded_at = :recorded_at";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([':recorded_at' => $posts['recorded_at']]);
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if ($row) {
+if (hasDuplicate($posts)) {
+    // 重複があればエラーメッセージを表示
     $_SESSION['message'] = 'この日付の記録はすでに存在します。';
-    $_SESSION['form'] = $_POST; // 入力値を保持
-    header('Location: add.php');
+    header("Location: edit.php?id={$posts['id']}");
+    exit;
+} else {
+    insert($posts);
+    header('Location: history.php');
     exit;
 }
-
-// 登録
-$sql = "INSERT INTO health_records 
-        (weight, heart_rate, systolic, diastolic, recorded_at) 
-        VALUES (:weight, :heart_rate, :systollic, :diastolic, :recorded_at)";
-$stmt = $pdo->prepare($sql);
-$stmt->execute([
-    ':weight' => $posts['weight'],
-    ':heart_rate' => $posts['heart_rate'],
-    ':systollic' => $posts['systolic'],
-    ':diastolic' => $posts['diastolic'],
-    ':recorded_at' => $posts['recorded_at'],
-]);
-
-$_SESSION['success'] = '記録を追加しました。';
-header('Location: history.php');
+// TODO: history.php にリダイレクト
 exit;
+
+function insert($posts)
+{
+    // データベース接続
+    $pdo = Database::getInstance();
+    // SQLクエリ
+    $sql = "INSERT INTO health_records (weight, heart_rate, systolic, diastolic, recorded_at) 
+            VALUES (:weight, :heart_rate, :systolic, :diastolic, :recorded_at)";
+    // プリペアドステートメントを作成
+    $stmt = $pdo->prepare($sql);
+    // SQLを実行
+    $stmt->execute([
+        ':weight' => $posts['weight'],
+        ':heart_rate' => $posts['heart_rate'],
+        ':systolic' => $posts['systolic'],
+        ':diastolic' => $posts['diastolic'],
+        ':recorded_at' => $posts['recorded_at'],
+    ]);
+}
+
+function hasDuplicate($posts)
+{
+    // データベース接続
+    $pdo = Database::getInstance();
+    // reported_at が重複しているか確認
+    $sql = "SELECT id FROM health_records WHERE recorded_at = :recorded_at";
+    // プリペアドステートメントを作成
+    $stmt = $pdo->prepare($sql);
+    // SQLを実行
+    $stmt->execute([':recorded_at' => $posts['recorded_at']]);
+    // 結果を取得
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // レコードが存在するか boolean を返す
+    return (bool) $row;
+}

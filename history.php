@@ -1,16 +1,25 @@
 <?php
 require_once 'app.php';
 
-// データベース接続
-$pdo = Database::getInstance();
-// SQLクエリ
-$sql = "SELECT * FROM health_records ORDER BY recorded_at DESC";
-// SQL実行
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-// 結果を取得
-$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// 一覧データを取得
+$records = get();
+
+function get($limit = 30)
+{
+    // データベース接続
+    $pdo = Database::getInstance();
+    // SQLクエリ
+    $sql = "SELECT * FROM health_records ORDER BY recorded_at DESC LIMIT :limit";
+    // プリペアドステートメントを作成
+    $stmt = $pdo->prepare($sql);
+    // SQLを実行
+    $stmt->execute([':limit' => $limit]);
+    // 結果を取得
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $records;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -37,10 +46,10 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr class="border-b border-gray-100">
                     <th class="p-2 font-normal"></th>
                     <th class="p-2 font-normal">日付</th>
-                    <th class="p-2 font-normal">体重</th>
-                    <th class="p-2 font-normal">心拍数</th>
-                    <th class="p-2 font-normal">血圧（上）</th>
-                    <th class="p-2 font-normal">血圧（下）</th>
+                    <th class="p-2 font-normal">体重(kg)</th>
+                    <th class="p-2 font-normal">心拍数(bpm)</th>
+                    <th class="p-2 font-normal">血圧（上）(mmHg)</th>
+                    <th class="p-2 font-normal">血圧（下）(mmHg)</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,11 +58,11 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td class="p-2">
                             <a href="edit.php?id=<?= $row['id'] ?>" class="text-green-500 text-xs">Edit</a>
                         </td>
-                        <td class="p-2"><?= $row['recorded_at'] ?></td>
-                        <td class="p-2"><?= $row['weight'] ?> kg</td>
-                        <td class="p-2"><?= $row['heart_rate'] ?> bpm</td>
-                        <td class="p-2"><?= $row['systolic'] ?> mmHg</td>
-                        <td class="p-2"><?= $row['diastolic'] ?> mmHg</td>
+                        <td class="p-2" nowrap="nowrap"><?= $row['recorded_at'] ?></td>
+                        <td class="p-2"><?= $row['weight'] ?></td>
+                        <td class="p-2"><?= $row['heart_rate'] ?></td>
+                        <td class="p-2"><?= $row['systolic'] ?></td>
+                        <td class="p-2"><?= $row['diastolic'] ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

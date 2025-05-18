@@ -1,8 +1,6 @@
 <?php
 require_once '../app.php';
 
-header('Content-Type: application/json');
-
 // データベース接続
 $pdo = Database::getInstance();
 // health_records から最新30件取得
@@ -13,5 +11,8 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 // 結果を取得
 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// レスポンスヘッダーを設定
+header('Content-Type: application/json');
 // JSON形式で出力
 echo json_encode($data);

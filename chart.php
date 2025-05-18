@@ -1,4 +1,5 @@
 <?php
+// 共通処理を読み込む
 require_once 'app.php';
 ?>
 
@@ -18,6 +19,10 @@ require_once 'app.php';
                 グラフダウンロード
             </button>
         </div>
+
+        <!-- メッセージ表示エリア -->
+        <div id="message" class="hidden bg-red-100 text-red-600 p-4 rounded"></div>
+
         <!-- グラフ -->
         <section class="mb-8">
             <canvas id="weightChart" height="150" class="mb-12"></canvas>
@@ -27,7 +32,7 @@ require_once 'app.php';
     </main>
 
     <?php include 'components/footer.php'; ?>
-    
+
     <!-- JS -->
     <script src="js/app.js" defer></script>
 </body>
