@@ -17,9 +17,10 @@ class Database
         ) {
             throw new Exception('Database configuration is not set.');
         }
-        // DB接続
+        // DSNの作成
         $dsn = "$connection:dbname=$db_name;host=$db_host;charset=utf8;port=$db_port";
         try {
+            // PDOインスタンスの作成し、pdoプロパティに格納
             $this->pdo = new PDO($dsn, $db_user, $db_pass);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -34,6 +35,7 @@ class Database
         if (self::$instance === null) {
             self::$instance = new Database();
         }
+        // PDOインスタンスを返す
         return self::$instance->pdo;
     }
 }

@@ -15,7 +15,9 @@ if ($id > 0) {
     $pdo = Database::getInstance();
     // SQLクエリ
     $sql = "DELETE FROM health_records WHERE id = :id";
+    // プリペアドステートメントを作成
     $stmt = $pdo->prepare($sql);
+    // SQLを実行
     $stmt->execute([':id' => $id]);
 }
 

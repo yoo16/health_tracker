@@ -1,16 +1,9 @@
 <?php
+// 共通処理を読み込む
 require_once '../app.php';
 
-// ヘッダー：ダウンロード用にCSV形式を指定
-header('Content-Type: text/csv; charset=utf-8');
-header('Content-Disposition: attachment; filename=health_records_latest.csv');
-
-// 出力バッファを使って直接出力
-$output = fopen('php://output', 'w');
-
-// CSVのヘッダー行
-fputcsv($output, ['recorded_at', 'weight', 'heart_rate', 'systolic', 'diastolic']);
-
+// データベース接続
+$pdo = Database::getInstance();
 // 最新30件のデータ取得（recorded_atの降順）
 $sql = "SELECT recorded_at, weight, heart_rate, systolic, diastolic 
         FROM health_records 
@@ -19,16 +12,18 @@ $sql = "SELECT recorded_at, weight, heart_rate, systolic, diastolic
 $stmt = $pdo->query($sql);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 各行をCSVとして出力
+// 出力バッファを使って直接出力
+$output = fopen('php://output', 'w');
+// CSVファイル名
+$csv_file = 'health_records_latest.csv';
+// ヘッダー：ダウンロード用にCSV形式を指定
+header("Content-Type: text/csv; charset=utf-8");
+header("Content-Disposition: attachment; filename={$csv_file}");
+// CSVのヘッダー行
+fputcsv($output, ['recorded_at', 'weight', 'heart_rate', 'systolic', 'diastolic']);
+// TODO: CSVのデータを foreach で繰り返し出力
 foreach ($rows as $row) {
-    fputcsv($output, [
-        $row['recorded_at'],
-        $row['weight'],
-        $row['heart_rate'],
-        $row['systolic'],
-        $row['diastolic']
-    ]);
+    fputcsv($output, $row);
 }
-
 fclose($output);
 exit;

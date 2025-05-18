@@ -1,11 +1,28 @@
-// 起動
+// メッセージ表示エリア
+const message = document.getElementById('message');
+
+// ChartJS プラグインの登録
+Chart.register(window['chartjs-plugin-annotation']); 
+
+// グラフレンダリング
 renderCharts();
 
 // データ取得関数（共通）
 async function fetchHealthData() {
-    const response = await fetch('api/health.php');
-    if (!response.ok) throw new Error('データ取得エラー');
-    return await response.json();
+    // APIのURLを指定
+    const url = '/api/health.php';
+    const response = await fetch(url);
+    if (!response.ok) {
+        message.innerText = '通信エラー';
+    }
+    try {
+        // レスポンスのJSONをパース
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.log('JSONパースエラー:', error);
+    }
+    message.innerText = 'APIデータ取得エラー';
 }
 
 // 体重グラフ
@@ -58,9 +75,8 @@ function renderWeightChart(data) {
     });
 }
 
-// 心拍数グラフ
-Chart.register(window['chartjs-plugin-annotation']); // プラグインの登録（必要）
 
+// 心拍数グラフ
 function renderHeartRateChart(data) {
     const labels = data.map(item => item.recorded_at);
     const heartRates = data.map(item => parseInt(item.heart_rate));
@@ -238,10 +254,11 @@ async function renderCharts() {
         renderHeartRateChart(data);
         renderBloodPressureChart(data);
     } catch (error) {
-        console.error('エラー:', error);
+        console.log('エラー:', error);
     }
 }
 
+// グラフのダウンロード
 function downloadChart() {
     const canvasIds = ['weightChart', 'heartRateChart', 'bpChart'];
     const canvases = canvasIds.map(id => document.getElementById(id));
