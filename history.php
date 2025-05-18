@@ -42,7 +42,7 @@ $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($records as $row): ?>
                     <tr class="border-b border-gray-100 text-gray-700">
                         <td class="p-2">
-                            <a href="edit.php?id=<?= $row['id'] ?>" class="text-sky-500 text-xs">編集</a>
+                            <a href="edit.php?id=<?= $row['id'] ?>" class="text-green-500 text-xs">Edit</a>
                         </td>
                         <td class="p-2"><?= $row['recorded_at'] ?></td>
                         <td class="p-2"><?= $row['weight'] ?> kg</td>
