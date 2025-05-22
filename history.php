@@ -36,7 +36,7 @@ function get($limit = 30)
                     新規記録
                 </a>
                 <!-- ダウンロード -->
-                <a href="api/csv_download.php" class="bg-green-600 text-xs text-white px-4 py-2 rounded">
+                <a href="api/health/csv/" class="bg-green-600 text-xs text-white px-4 py-2 rounded">
                     CSVダウンロード
                 </a>
             </div>

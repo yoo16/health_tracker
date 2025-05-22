@@ -1,6 +1,6 @@
 <?php
 // 共通処理を読み込む
-require_once '../app.php';
+require_once '../../../app.php';
 
 // データベース接続
 $pdo = Database::getInstance();

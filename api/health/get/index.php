@@ -1,5 +1,5 @@
 <?php
-require_once '../app.php';
+require_once '../../../app.php';
 
 // データベース接続
 $pdo = Database::getInstance();
