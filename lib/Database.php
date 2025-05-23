@@ -13,9 +13,9 @@ class Database
         $db_pass = DB_PASS;
         $db_port = DB_PORT;
         if (empty($connection) || empty($db_name) || empty($db_host)
-            || empty($db_user) || empty($db_pass) || empty($db_port)
+            || empty($db_user) || empty($db_port)
         ) {
-            throw new Exception('Database configuration is not set.');
+            exit("データベースの接続情報が不足しています。 env.phpを確認してください。");
         }
         // DSNの作成
         $dsn = "$connection:dbname=$db_name;host=$db_host;charset=utf8;port=$db_port";
