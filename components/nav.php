@@ -11,6 +11,7 @@
             <li><a href="add.php" class="hover:underline">新規記録</a></li>
             <li><a href="history.php" class="hover:underline">履歴</a></li>
             <li><a href="chart.php" class="hover:underline">グラフ</a></li>
+            <li><a href="camera.php" class="hover:underline">カメラ診断</a></li>
         </ul>
     </div>
 </nav>

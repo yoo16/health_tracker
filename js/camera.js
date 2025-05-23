@@ -1,9 +1,7 @@
 // DOM 要素
-const cameraBtn = document.getElementById('camera-btn');
-const fileBtn = document.getElementById('file-btn');
-const preview = document.getElementById('preview');
 const video = document.getElementById('video');
 const captureBtn = document.getElementById('capture-btn');
+const uploadBtn = document.getElementById('upload-btn');
 const photoInput = document.getElementById('photo');
 const canvasArea = document.getElementById('canvas-area');
 const countdownOverlay = document.getElementById('countdownOverlay');
@@ -128,27 +126,45 @@ closeImageModal.addEventListener('click', () => {
     imageModal.classList.add('hidden');
 });
 
-// 画像ファイルを File に追加するイベント
-fileBtn.addEventListener('click', () => {
-    // canvas から blob を作成
-    canvas.toBlob((blob) => {
-        // File オブジェクトを生成（擬似的に input[type=file] に渡すため）
-        const file = new File([blob], capturedImage.src, { type: 'image/jpeg' });
-
-        // プレビュー用画像を表示
-        preview.src = URL.createObjectURL(file);
-
-        // フォーム送信時に使う FormData に file をセット
-        const dataTransfer = new DataTransfer(); // ← fileInput.files を操作する唯一の方法
-        dataTransfer.items.add(file);
-        fileInput.files = dataTransfer.files;
-    }, 'image/jpeg');
-});
-
 // Audio ON/OFF 切替
 toggleAudioBtn.addEventListener('click', () => {
     audioEnabled = !audioEnabled;
     toggleAudioBtn.textContent = audioEnabled ? "Audio ON" : "Audio OFF";
+});
+
+// Upload ボタンが押されたときに画像をアップロード
+uploadBtn.addEventListener('click', async () => {
+    loadingModal.classList.remove('hidden');
+
+    const file = dataTransfer.files[0];
+    if (!file) {
+        alert('ファイルが見つかりません');
+        loadingModal.classList.add('hidden');
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        const response = await fetch('api/health/upload_image/', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) throw new Error('Upload failed');
+        const result = await response.json();
+        
+        console.log('Upload success:', result);
+        alert('アップロード成功！');
+
+        imageModal.classList.add('hidden');
+    } catch (error) {
+        console.error('Error uploading image:', error);
+        alert('アップロードに失敗しました');
+    } finally {
+        loadingModal.classList.add('hidden');
+    }
 });
 
 // カメラ起動

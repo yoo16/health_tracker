@@ -37,10 +37,10 @@
     <div class="bg-white p-4 rounded-lg flex flex-col items-center">
         <img id="capturedImage" src="" alt="Captured Image" class="max-w-full max-h-full">
         <div class="mt-4 flex space-x-4">
-            <button id="downloadImage" class="bg-green-500 text-white px-4 py-2 rounded">
-                Download
+            <button id="upload-btn" class="bg-green-500 text-white px-4 py-2 rounded">
+                Upload
             </button>
-            <button id="closeImageModal" class="bg-red-500 text-white px-4 py-2 rounded">
+            <button id="closeImageModal" class="text-gray-500 px-4 py-2 rounded">
                 Close
             </button>
         </div>
