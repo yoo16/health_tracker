@@ -34,7 +34,7 @@ require_once 'app.php';
     <?php include 'components/footer.php'; ?>
 
     <!-- JS -->
-    <script src="js/app.js" defer></script>
+    <script src="js/health_chart.js" defer></script>
 </body>
 
 </html>

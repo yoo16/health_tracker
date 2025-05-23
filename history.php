@@ -28,7 +28,7 @@ function get($limit = 30)
 <body>
     <?php include 'components/nav.php' ?>
 
-    <main class="container mx-auto">
+    <main class="container mx-auto w-full">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-green-600">履歴</h1>
             <div class="flex space-x-4">
@@ -56,7 +56,7 @@ function get($limit = 30)
                 <?php foreach ($records as $row): ?>
                     <tr class="border-b border-gray-100 text-gray-700">
                         <td class="p-2">
-                            <a href="edit.php?id=<?= $row['id'] ?>" class="text-green-500 text-xs">Edit</a>
+                            <a href="edit.php?id=<?= $row['id'] ?>" class="border border-green-500 rounded px-2 py-1 text-green-500 text-xs">Edit</a>
                         </td>
                         <td class="p-2" nowrap="nowrap"><?= $row['recorded_at'] ?></td>
                         <td class="p-2"><?= $row['weight'] ?></td>
