@@ -1,14 +1,14 @@
 <section class="container mx-auto p-6">
-    <h1 class="text-2xl font-bold text-center mb-6">Video Capture</h1>
+    <h1 class="text-2xl font-bold text-center p-2">カメラ</h1>
     <div id="video-area" class="flex flex-col items-center">
         <input type="file" id="photo" class="hidden" />
         <video id="video" width="640" height="480" autoplay class="hidden rounded-lg mt-4"></video>
         <div class="mt-4 flex space-x-4">
             <button id="capture-btn" type="button" class="bg-sky-500 text-white px-3 py-2 rounded-md">
-                Capture
+                写真を撮る
             </button>
             <!-- 音声のON/OFF切替ボタン -->
-            <button id="toggleAudioBtn" type="button" class="bg-blue-500 text-white px-3 py-2 rounded-md">
+            <button id="toggleAudioBtn" type="button" class="bg-gray-500 text-white px-3 py-2 rounded-md">
                 Audio ON
             </button>
         </div>

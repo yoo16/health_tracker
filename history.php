@@ -30,17 +30,28 @@ function get($limit = 30)
 
     <main class="container mx-auto w-full">
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-green-600">履歴</h1>
+            <h1 class="text-2xl font-bold text-green-600">健康履歴</h1>
             <div class="flex space-x-4">
+                <!-- 新規記録 -->
                 <a href="add.php" class="bg-green-600 text-xs text-white px-4 py-2 rounded">
                     新規記録
                 </a>
+                <!-- AI診断 -->
+                <button id="ai-chat-btn" class="bg-green-600 text-xs text-white px-4 py-2 rounded">
+                    AI診断
+                </button>
                 <!-- ダウンロード -->
                 <a href="api/health/csv/" class="bg-green-600 text-xs text-white px-4 py-2 rounded">
                     CSVダウンロード
                 </a>
             </div>
         </div>
+
+        <!-- ここに診断結果を表示 -->
+        <div id="ai-result" class="my-3 p-6 bg-green-50 text-gray-800 text-base text-sm leading-relaxed space-y-4 rounded-lg shadow">
+            <!-- ここに marked.js で生成した HTML を差し込み -->
+        </div>
+
         <table class="w-full table-auto border-collapse text-xs">
             <thead class="text-left text-green-700">
                 <tr class="border-b border-gray-100">
@@ -71,7 +82,7 @@ function get($limit = 30)
 
     <?php include 'components/footer.php'; ?>
     <!-- JS -->
-    <script src="js/app.js" defer></script>
+    <script src="js/health_ai.js" defer></script>
 </body>
 
 </html>

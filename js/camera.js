@@ -31,7 +31,7 @@ const dataTransfer = new DataTransfer();
 const countdownAudio = new Audio('audio/countdown.wav');
 
 // 音声再生のON/OFF制御フラグ（初期値：ON）
-let audioEnabled = true;
+let audioEnabled = false;
 
 /**
  * 合成用の Canvas を作成し、DOM へ追加
@@ -130,6 +130,13 @@ closeImageModal.addEventListener('click', () => {
 toggleAudioBtn.addEventListener('click', () => {
     audioEnabled = !audioEnabled;
     toggleAudioBtn.textContent = audioEnabled ? "Audio ON" : "Audio OFF";
+    if (audioEnabled) {
+        toggleAudioBtn.classList.remove('bg-gray-500');
+        toggleAudioBtn.classList.add('bg-green-500');
+    } else {
+        toggleAudioBtn.classList.remove('bg-green-500');
+        toggleAudioBtn.classList.add('bg-gray-500');
+    }
 });
 
 // Upload ボタンが押されたときに画像をアップロード
