@@ -12,7 +12,9 @@ require_once 'app.php';
     <?php include 'components/nav.php' ?>
 
     <main class="container mx-auto">
-        <?php include 'components/Camera.php' ?>
+        <h1 class="text-2xl font-bold text-green-600">姿勢チェック</h1>
+        
+        <?php include 'components/pose.php' ?>
     </main>
 
     <?php include 'components/footer.php'; ?>
