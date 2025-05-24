@@ -2,6 +2,9 @@ const btn = document.getElementById('ai-chat-btn');
 const box = document.getElementById('ai-result');
 
 btn.addEventListener('click', async () => {
+    if (!confirm('診断を開始しますか？')) {
+        return;
+    }
     btn.disabled = true;
     box.innerHTML = '<p>診断中…少々お待ちください。</p>';
 
