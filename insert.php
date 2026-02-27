@@ -15,15 +15,13 @@ $_SESSION['form'] = $posts;
 if (hasDuplicate($posts)) {
     // 重複があればエラーメッセージを表示
     $_SESSION['message'] = 'この日付の記録はすでに存在します。';
-    header("Location: edit.php?id={$posts['id']}");
+    header("Location: add.php");
     exit;
 } else {
     insert($posts);
     header('Location: history.php');
     exit;
 }
-// TODO: history.php にリダイレクト
-exit;
 
 function insert($posts)
 {
