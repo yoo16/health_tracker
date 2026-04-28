@@ -1,6 +1,8 @@
 <?php
 require_once '../../../app.php';
 
+use Lib\Database;
+
 // データベース接続
 $pdo = Database::getInstance();
 // health_records から最新30件取得
