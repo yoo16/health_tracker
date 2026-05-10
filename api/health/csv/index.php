@@ -2,6 +2,8 @@
 // 共通処理を読み込む
 require_once '../../../app.php';
 
+use Lib\Database;
+
 // データベース接続
 $pdo = Database::getInstance();
 // 最新30件のデータ取得（recorded_atの降順）
