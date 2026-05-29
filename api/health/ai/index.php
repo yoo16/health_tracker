@@ -3,6 +3,8 @@ require_once '../../../env.php';
 require_once '../../../services/GeminiService.php';
 require_once '../../../lib/Database.php';
 
+use Lib\Database;
+
 header('Content-Type: application/json; charset=utf-8');
 
 // 1. データ取得（最新30件）

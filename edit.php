@@ -2,6 +2,8 @@
 // 共通処理を読み込む
 require_once 'app.php';
 
+use Lib\Database;
+
 // TODO: GETリクエストから id を取得
 $id = $_GET['id'] ?? null;
 

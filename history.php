@@ -1,6 +1,8 @@
 <?php
 require_once 'app.php';
 
+use Lib\Database;
+
 // 一覧データを取得
 $records = get();
 
