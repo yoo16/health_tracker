@@ -1,6 +1,6 @@
 <?php
 // 共通処理を読み込む
-require_once 'app.php';
+require_once '../app.php';
 
 use Lib\Database;
 
@@ -17,11 +17,11 @@ $_SESSION['form'] = $posts;
 if (hasDuplicate($posts)) {
     // 重複があればエラーメッセージを表示
     $_SESSION['message'] = 'この日付の記録はすでに存在します。';
-    header("Location: add.php");
+    header('Location: ' . BASE_URL . 'health/add.php');
     exit;
 } else {
     insert($posts);
-    header('Location: history.php');
+    header('Location: ' . BASE_URL . 'health/');
     exit;
 }
 

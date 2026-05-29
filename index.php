@@ -22,23 +22,16 @@ require_once 'app.php';
         <section class="relative overflow-hidden bg-cover bg-center"
             style="background-image: url('images/back_image.png');">
 
-            <div class="absolute inset-0 bg-gradient-to-r from-white via-white/5 to-sky-950/10"></div>
+            <div class="absolute inset-0"></div>
 
-            <div class="relative grid min-h-[calc(100vh-88px)] w-full items-stretch md:grid-cols-[0.9fr_1.1fr]">
+            <div class="relative grid min-h-[calc(100vh-88px)] w-full items-stretch md:grid-cols-[1.0fr_1.1fr]">
 
                 <!-- 左カラム：テキスト＆CTA -->
-                <div class="flex items-center px-6 py-16 md:px-10 lg:px-16 xl:px-24">
-                    <div class="max-w-xl space-y-8 fade-up fade-up-1">
-
-                        <!-- バッジ -->
-                        <span class="inline-flex items-center gap-2 rounded-full border border-sky-200
-                                    bg-white px-4 py-1.5 text-xs font-semibold text-sky-700 shadow-sm">
-                            <span class="h-2 w-2 rounded-full bg-sky-500 animate-pulse"></span>
-                            日々の体調をやさしく記録
-                        </span>
+                <div class="flex items-center px-6 py-16">
+                    <div class="max-w-xl space-y-8 fade-up fade-up-1 p-6 rounded-2xl">
 
                         <!-- キャッチコピー -->
-                        <div class="space-y-4">
+                        <div class="space-y-4 bg-white/90 p-8 rounded-2xl shadow-lg shadow-sky-900/10">
                             <h2 class="text-4xl font-bold leading-loose tracking-loose text-slate-900 md:text-5xl">
                                 日々の健康を、<br>
                                 もっと楽しく、<br>
@@ -58,7 +51,7 @@ require_once 'app.php';
                                     transition hover:opacity-90 hover:shadow-lg hover:shadow-sky-300">
                                 ユーザ登録
                             </a>
-                            <a href="history.php"
+                            <a href="<?= BASE_URL ?>login/"
                                 class="inline-flex items-center justify-center gap-2 rounded-lg border border-sky-200
                                     bg-white px-8 py-3.5 text-sm font-bold text-sky-700 shadow-sm
                                     transition hover:border-sky-300 hover:bg-sky-50">
@@ -106,7 +99,7 @@ require_once 'app.php';
                             <div class="rounded-xl bg-slate-50 p-3">
                                 <div class="mb-2 flex items-center justify-between">
                                     <p class="text-xs font-semibold text-slate-600">Meal log</p>
-                                    <a href="add.php" class="text-xs text-sky-600 hover:underline">更新 ›</a>
+                                    <a href="<?= BASE_URL ?>health/add.php" class="text-xs text-sky-600 hover:underline">更新 ›</a>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <div class="h-8 w-8 rounded-lg bg-amber-100 flex items-center justify-center text-base">🥣</div>
@@ -138,7 +131,7 @@ require_once 'app.php';
                 <div class="grid gap-6 md:grid-cols-3 fade-up fade-up-2">
 
                     <!-- ステップ/アクティビティ -->
-                    <a href="add.php"
+                    <a href="<?= BASE_URL ?>health/add.php"
                         class="kenko-card group rounded-2xl border border-slate-200 bg-white p-7
                               hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100/60">
                         <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl
@@ -152,7 +145,7 @@ require_once 'app.php';
                     </a>
 
                     <!-- 睡眠分析 -->
-                    <a href="history.php"
+                    <a href="<?= BASE_URL ?>dashboard/"
                         class="kenko-card group rounded-2xl border border-slate-200 bg-white p-7
                               hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100/60">
                         <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl

@@ -44,7 +44,7 @@ $_SESSION['user'] = [
 
 unset($_SESSION['login_old']);
 
-header('Location: ../history.php');
+header('Location: ' . BASE_URL . 'dashboard/');
 exit;
 
 function validateLoginInput(array $posts): array

@@ -1,6 +1,6 @@
 <?php
 // 共通処理を読み込む
-require_once 'app.php';
+require_once '../app.php';
 
 use Lib\Database;
 
@@ -24,5 +24,5 @@ if ($id > 0) {
 }
 
 // 削除後は履歴ページにリダイレクト
-header("Location: history.php");
+header('Location: ' . BASE_URL . 'health/');
 exit;

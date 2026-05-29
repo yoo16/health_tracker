@@ -1,6 +1,6 @@
 <?php
 // 共通処理を読み込む
-require_once 'app.php';
+require_once '../app.php';
 
 use Lib\Database;
 
@@ -14,12 +14,12 @@ $posts = $_POST;
 if (hasDuplicate($posts['id'], $posts['recorded_at'])) {
     // 重複があればエラーメッセージを表示
     $_SESSION['message'] = 'この日付の記録はすでに存在します。';
-    header("Location: edit.php?id={$posts['id']}");
+    header('Location: ' . BASE_URL . "health/edit.php?id={$posts['id']}");
     exit;
 } else {
     // 重複がなければデータを更新
     update($posts['id'], $posts);
-    header('Location: history.php');
+    header('Location: ' . BASE_URL . 'health/');
     exit;
 }
 

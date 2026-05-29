@@ -1,6 +1,5 @@
 <?php
-$scriptDir = trim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
-$basePath = $scriptDir === '' ? './' : str_repeat('../', substr_count($scriptDir, '/') + 1);
+$basePath = BASE_URL;
 ?>
 
 <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-sky-100">
@@ -21,14 +20,21 @@ $basePath = $scriptDir === '' ? './' : str_repeat('../', substr_count($scriptDir
                 </a>
             </li>
             <li>
-                <a href="<?= $basePath ?>add.php" class="relative py-1 transition hover:text-sky-600
+                <a href="<?= $basePath ?>health/" class="relative py-1 transition hover:text-sky-600
                     after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
                     after:bg-sky-500 after:transition-all hover:after:w-full">
-                    新規記録
+                    健康履歴
                 </a>
             </li>
             <li>
-                <a href="<?= $basePath ?>history.php" class="relative py-1 transition hover:text-sky-600
+                <a href="<?= $basePath ?>dashboard/" class="relative py-1 transition hover:text-sky-600
+                    after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                    after:bg-sky-500 after:transition-all hover:after:w-full">
+                    ダッシュボード
+                </a>
+            </li>
+            <li>
+                <a href="<?= $basePath ?>health/" class="relative py-1 transition hover:text-sky-600
                     after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
                     after:bg-sky-500 after:transition-all hover:after:w-full">
                     履歴
@@ -78,8 +84,9 @@ $basePath = $scriptDir === '' ? './' : str_repeat('../', substr_count($scriptDir
     <div id="nav-mobile" class="hidden md:hidden border-t border-sky-100 bg-white px-6 py-4">
         <ul class="flex flex-col gap-4 text-sm font-medium text-slate-600">
             <li><a href="<?= $basePath ?>" class="block py-1 hover:text-sky-600">ホーム</a></li>
-            <li><a href="<?= $basePath ?>add.php" class="block py-1 hover:text-sky-600">新規記録</a></li>
-            <li><a href="<?= $basePath ?>history.php" class="block py-1 hover:text-sky-600">履歴</a></li>
+            <li><a href="<?= $basePath ?>health/add.php" class="block py-1 hover:text-sky-600">新規記録</a></li>
+            <li><a href="<?= $basePath ?>dashboard/" class="block py-1 hover:text-sky-600">ダッシュボード</a></li>
+            <li><a href="<?= $basePath ?>health/" class="block py-1 hover:text-sky-600">履歴</a></li>
             <li><a href="<?= $basePath ?>chart.php" class="block py-1 hover:text-sky-600">グラフ</a></li>
             <li><a href="<?= $basePath ?>camera.php" class="block py-1 hover:text-sky-600">カメラ診断</a></li>
         </ul>
