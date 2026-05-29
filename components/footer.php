@@ -1,3 +1,10 @@
+<?php
+if (!isset($basePath)) {
+    $scriptDir = trim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
+    $basePath = $scriptDir === '' ? './' : str_repeat('../', substr_count($scriptDir, '/') + 1);
+}
+?>
+
 <footer class="bg-sky-700 text-white">
     <div class="max-w-6xl mx-auto px-6 py-10 md:px-10">
 
@@ -6,18 +13,18 @@
 
             <!-- ロゴ＋キャッチ -->
             <div class="space-y-3">
-                <a href="./" class="inline-flex items-center gap-2">
+                <a href="<?= $basePath ?>" class="inline-flex items-center gap-2">
                     KENKO LOG
                 </a>
             </div>
 
             <!-- フッターナビ -->
             <nav class="grid grid-cols-2 gap-x-12 gap-y-2 text-sm text-sky-100 sm:flex sm:gap-10">
-                <a href="./"          class="transition hover:text-white">ホーム</a>
-                <a href="add.php"     class="transition hover:text-white">新規記録</a>
-                <a href="history.php" class="transition hover:text-white">履歴</a>
-                <a href="chart.php"   class="transition hover:text-white">グラフ</a>
-                <a href="camera.php"  class="transition hover:text-white">カメラ診断</a>
+                <a href="<?= $basePath ?>"            class="transition hover:text-white">ホーム</a>
+                <a href="<?= $basePath ?>add.php"     class="transition hover:text-white">新規記録</a>
+                <a href="<?= $basePath ?>history.php" class="transition hover:text-white">履歴</a>
+                <a href="<?= $basePath ?>chart.php"   class="transition hover:text-white">グラフ</a>
+                <a href="<?= $basePath ?>camera.php"  class="transition hover:text-white">カメラ診断</a>
             </nav>
         </div>
 
@@ -26,7 +33,7 @@
                     sm:flex-row sm:items-center sm:justify-between">
             <span>&copy; <?= date('Y') ?> <?= SITE_TITLE ?>. All rights reserved.</span>
             <span>
-                <a href="./" class="hover:text-white transition"><?= SITE_TITLE ?></a>
+                <a href="<?= $basePath ?>" class="hover:text-white transition"><?= SITE_TITLE ?></a>
             </span>
         </div>
     </div>

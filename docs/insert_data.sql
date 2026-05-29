@@ -1,5 +1,6 @@
-TRUNCATE TABLE health_records;
--- 2025年5月1日から2025年5月10日までの健康記録を挿入
+INSERT INTO users (id, name, email, password_hash) VALUES
+(1, 'テストユーザー', 'test@example.com', '$2y$12$WhA2BgVK6vFurRqULSVgEOlQV4EcGECyRdgETaGSE1CxNEJFzXheq');
+
 INSERT INTO health_records (weight, heart_rate, systolic, diastolic, recorded_at) VALUES
 (62.5, 72, 120, 78, '2025-05-01'),
 (63.1, 70, 118, 80, '2025-05-02'),
@@ -8,6 +9,53 @@ INSERT INTO health_records (weight, heart_rate, systolic, diastolic, recorded_at
 (63.3, 73, 130, 86, '2025-05-05'),
 (63.2, 68, 118, 76, '2025-05-06'),
 (62.9, 71, 121, 79, '2025-05-07'),
-(63.4, 74, 127, 83, '2024-05-08'),
+(63.4, 74, 127, 83, '2025-05-08'),
 (62.6, 70, 116, 77, '2025-05-09'),
 (63.0, 72, 119, 81, '2025-05-10');
+
+INSERT INTO exercise_records (
+    user_id,
+    exercise_date,
+    exercise_type,
+    duration_minutes,
+    calories_burned,
+    distance_km,
+    memo
+) VALUES
+(1, '2025-05-01', 'ウォーキング', 35, 150, 2.80, '朝の散歩'),
+(1, '2025-05-03', 'ジョギング', 25, 220, 3.40, '軽めのランニング'),
+(1, '2025-05-05', 'ストレッチ', 20, 60, NULL, '就寝前のストレッチ'),
+(1, '2025-05-07', 'サイクリング', 45, 320, 12.50, '通勤ついで'),
+(1, '2025-05-10', '筋力トレーニング', 30, 180, NULL, '自宅トレーニング');
+
+INSERT INTO sleep_records (
+    user_id,
+    sleep_date,
+    bedtime,
+    wake_time,
+    sleep_duration_minutes,
+    sleep_quality,
+    memo
+) VALUES
+(1, '2025-05-01', '2025-04-30 23:15:00', '2025-05-01 06:45:00', 450, 4, '途中で一度目が覚めた'),
+(1, '2025-05-02', '2025-05-01 23:40:00', '2025-05-02 06:30:00', 410, 3, '少し寝不足'),
+(1, '2025-05-03', '2025-05-02 22:50:00', '2025-05-03 06:50:00', 480, 5, 'よく眠れた'),
+(1, '2025-05-04', '2025-05-03 23:20:00', '2025-05-04 07:00:00', 460, 4, '起床時の体調は良好'),
+(1, '2025-05-05', '2025-05-04 00:10:00', '2025-05-05 06:20:00', 370, 2, '就寝が遅くなった');
+
+INSERT INTO meal_records (
+    user_id,
+    meal_date,
+    meal_type,
+    food_name,
+    calories,
+    protein_g,
+    fat_g,
+    carbohydrate_g,
+    memo
+) VALUES
+(1, '2025-05-01', 'breakfast', 'オートミールとヨーグルト', 360, 16.0, 8.5, 54.0, '果物を追加'),
+(1, '2025-05-01', 'lunch', '鶏むね肉のサラダボウル', 520, 38.0, 16.0, 48.0, 'ドレッシング少なめ'),
+(1, '2025-05-02', 'dinner', '焼き鮭定食', 680, 34.0, 22.0, 78.0, '味噌汁付き'),
+(1, '2025-05-04', 'snack', 'プロテインバー', 210, 15.0, 7.0, 22.0, '運動後'),
+(1, '2025-05-07', 'dinner', '野菜カレー', 740, 18.0, 24.0, 112.0, '玄米ごはん');

@@ -1,11 +1,12 @@
 <?php
 require_once 'app.php';
-try {
-    Database::getInstance();
-} catch (Throwable $e) {
-    header('Location: create_database.php');
-    exit;
-}
+// use Lib\Database;
+// try {
+//     Database::getInstance();
+// } catch (Throwable $e) {
+//     header('Location: create_database.php');
+//     exit;
+// }
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -38,12 +39,12 @@ try {
 
                         <!-- キャッチコピー -->
                         <div class="space-y-4">
-                            <h2 class="text-4xl font-bold leading-tight tracking-tight text-slate-900 md:text-5xl">
+                            <h2 class="text-4xl font-bold leading-loose tracking-loose text-slate-900 md:text-5xl">
                                 日々の健康を、<br>
                                 もっと楽しく、<br>
                                 <span class="text-sky-600">かんたんに記録。</span>
                             </h2>
-                            <p class="max-w-md text-base leading-8 text-slate-500 md:text-lg">
+                            <p class="max-w-md text-base leading-8 text-black md:text-lg">
                                 <?= SITE_TITLE ?> は、あなたの毎日をサポートする<br>
                                 オールインワン健康管理アプリです。
                             </p>
@@ -51,11 +52,11 @@ try {
 
                         <!-- CTAボタン -->
                         <div class="flex flex-col gap-3 sm:flex-row">
-                            <a href="add.php"
+                            <a href="register/"
                                 class="inline-flex items-center justify-center gap-2 rounded-lg kenko-gradient
                                     px-8 py-3.5 text-sm font-bold text-white shadow-md shadow-sky-200
                                     transition hover:opacity-90 hover:shadow-lg hover:shadow-sky-300">
-                                新規登録
+                                ユーザ登録
                             </a>
                             <a href="history.php"
                                 class="inline-flex items-center justify-center gap-2 rounded-lg border border-sky-200
