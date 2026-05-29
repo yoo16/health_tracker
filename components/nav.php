@@ -1,17 +1,98 @@
-<nav class="bg-white text-green-500 px-6 py-4 mb-4">
-    <div class="max-w-5xl mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-bold">
-            <a href="./">
-                <img src="images/heart.svg" class="h-6 inline-block" alt="Heart Icon">
-                <?= SITE_TITLE ?>
-            </a>
-        </h1>
+<nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b border-sky-100">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
-        <ul class="flex space-x-6 text-sm font-medium">
-            <li><a href="add.php" class="hover:underline">新規記録</a></li>
-            <li><a href="history.php" class="hover:underline">履歴</a></li>
-            <li><a href="chart.php" class="hover:underline">グラフ</a></li>
-            <li><a href="camera.php" class="hover:underline">カメラ診断</a></li>
+        <!-- ロゴ -->
+        <a href="./" class="inline-flex items-center gap-2 group">
+            <img src="images/logo.png" class="h-10 w-auto" alt="Kenko Log">
+        </a>
+
+        <!-- ナビゲーション（デスクトップ） -->
+        <ul class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <li>
+                <a href="./" class="relative py-1 transition hover:text-sky-600
+                    after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                    after:bg-sky-500 after:transition-all hover:after:w-full">
+                    ホーム
+                </a>
+            </li>
+            <li>
+                <a href="add.php" class="relative py-1 transition hover:text-sky-600
+                    after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                    after:bg-sky-500 after:transition-all hover:after:w-full">
+                    新規記録
+                </a>
+            </li>
+            <li>
+                <a href="history.php" class="relative py-1 transition hover:text-sky-600
+                    after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                    after:bg-sky-500 after:transition-all hover:after:w-full">
+                    履歴
+                </a>
+            </li>
+            <li>
+                <a href="chart.php" class="relative py-1 transition hover:text-sky-600
+                    after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                    after:bg-sky-500 after:transition-all hover:after:w-full">
+                    グラフ
+                </a>
+            </li>
+            <li>
+                <a href="camera.php" class="relative py-1 transition hover:text-sky-600
+                    after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
+                    after:bg-sky-500 after:transition-all hover:after:w-full">
+                    カメラ診断
+                </a>
+            </li>
         </ul>
+
+        <!-- CTAボタン -->
+        <div class="hidden md:flex items-center gap-3">
+            <a href="history.php"
+                class="rounded-md border border-sky-300 px-5 py-2 text-sm font-semibold text-sky-700
+                      transition hover:bg-sky-50">
+                ログイン
+            </a>
+            <a href="add.php"
+                class="rounded-md kenko-gradient px-5 py-2 text-sm font-semibold text-white shadow-sm
+                      transition hover:opacity-90">
+                無料で始める
+            </a>
+        </div>
+
+        <!-- ハンバーガー（モバイル） -->
+        <button id="nav-toggle" class="md:hidden p-2 rounded-md text-slate-600 hover:bg-sky-50"
+            aria-label="メニューを開く">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- モバイルメニュー -->
+    <div id="nav-mobile" class="hidden md:hidden border-t border-sky-100 bg-white px-6 py-4">
+        <ul class="flex flex-col gap-4 text-sm font-medium text-slate-600">
+            <li><a href="./" class="block py-1 hover:text-sky-600">ホーム</a></li>
+            <li><a href="add.php" class="block py-1 hover:text-sky-600">新規記録</a></li>
+            <li><a href="history.php" class="block py-1 hover:text-sky-600">履歴</a></li>
+            <li><a href="chart.php" class="block py-1 hover:text-sky-600">グラフ</a></li>
+            <li><a href="camera.php" class="block py-1 hover:text-sky-600">カメラ診断</a></li>
+        </ul>
+        <div class="mt-4 flex flex-col gap-2">
+            <a href="history.php"
+                class="rounded-md border border-sky-300 px-5 py-2 text-center text-sm font-semibold text-sky-700">
+                ログイン
+            </a>
+            <a href="add.php"
+                class="rounded-md kenko-gradient px-5 py-2 text-center text-sm font-semibold text-white">
+                無料で始める
+            </a>
+        </div>
     </div>
 </nav>
+
+<script>
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+        document.getElementById('nav-mobile').classList.toggle('hidden');
+    });
+</script>

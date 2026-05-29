@@ -5,6 +5,7 @@ require_once 'env.php';
 require_once 'lib/Database.php';
 // サイトタイトル
 const SITE_TITLE = 'KENKO LOG';
+
 // セッション開始
 session_start();
 session_regenerate_id(true);
