@@ -9,6 +9,7 @@ btn.addEventListener('click', async () => {
     box.innerHTML = '<p>診断中…少々お待ちください。</p>';
 
     try {
+        const userId = btn.dataset.userId;
         // API から診断結果を取得
         const res = await fetch('api/health/ai/');
         // JSONをJavaScriptオブジェクトに変換

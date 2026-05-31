@@ -10,8 +10,10 @@ body {
     transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
 }
 
+
 .kenko-card:hover {
     transform: translateY(-2px);
+    color: rgba(0, 148, 254, 0.6)
 }
 
 @keyframes fadeUp {

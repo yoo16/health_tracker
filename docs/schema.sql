@@ -22,6 +22,7 @@ CREATE TABLE users (
 
 CREATE TABLE health_records (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
     weight FLOAT NOT NULL,
     heart_rate INT NOT NULL,
     systolic INT, -- 収縮期（上の血圧）

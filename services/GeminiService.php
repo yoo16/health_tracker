@@ -14,15 +14,14 @@ class GeminiService
     /**
      * 単一プロンプトでまとめて診断するメソッド
      * @param array  $records  health_records から取得した連想配列の配列
-     * @param string $model    使用モデル名
      * @return string|null     Gemini の生成テキスト
      */
-    public function chat(array $records, string $model = 'gemini-2.0-flash'): ?string
+    public function chatHealth(array $records): ?string
     {
         $url = sprintf(
             '%s%s:generateContent?key=%s',
             $this->baseURL,
-            $model,
+            GEMINI_MODEL,
             GEMINI_API_KEY
         );
 

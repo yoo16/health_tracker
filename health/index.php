@@ -3,19 +3,26 @@ require_once '../app.php';
 
 use Lib\Database;
 
-// 一覧データを取得
-$records = get();
+if (empty($_SESSION['user'])) {
+    header('Location: ' . BASE_URL . 'login/');
+    exit;
+}
 
-function get($limit = 30)
+// 一覧データを取得
+$records = get((int) $_SESSION['user']['id']);
+
+function get(int $userId, int $limit = 30)
 {
     // データベース接続
     $pdo = Database::getInstance();
     // SQLクエリ
-    $sql = "SELECT * FROM health_records ORDER BY recorded_at DESC LIMIT :limit";
+    $sql = "SELECT * FROM health_records WHERE user_id = :user_id ORDER BY recorded_at DESC LIMIT :limit";
     // プリペアドステートメントを作成
     $stmt = $pdo->prepare($sql);
     // SQLを実行
-    $stmt->execute([':limit' => $limit]);
+    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->execute();
     // 結果を取得
     $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $records;
@@ -35,20 +42,25 @@ function get($limit = 30)
             <header class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
                 <div>
                     <p class="text-sm font-semibold text-sky-600">Health Records</p>
-                    <h1 class="mt-2 text-3xl font-bold text-slate-900">健康履歴</h1>
+                    <h1 class="mt-2 text-3xl font-bold text-slate-900">健康管理</h1>
                     <p class="mt-3 text-sm leading-7 text-slate-500">
                         体重、心拍数、血圧の変化を日付ごとに確認できます。
                     </p>
                 </div>
 
                 <div class="flex flex-col gap-3 sm:flex-row">
-                    <a href="<?= BASE_URL ?>health/add.php" class="inline-flex items-center justify-center rounded-lg kenko-gradient px-5 py-3 text-sm font-bold text-white shadow-md shadow-sky-200 transition hover:opacity-90">
+                    <a href="health/add.php" class="inline-flex items-center justify-center rounded-lg kenko-gradient px-5 py-3 text-sm font-bold text-white shadow-md shadow-sky-200 transition hover:opacity-90">
                         新規記録
                     </a>
-                    <button id="ai-chat-btn" class="inline-flex items-center justify-center rounded-lg border border-sky-200 bg-white px-5 py-3 text-sm font-bold text-sky-700 transition hover:bg-sky-50">
-                        AI診断
+                    <a href="health/chart.php" class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-600 transition hover:border-sky-200 hover:text-sky-700">
+                        グラフ
+                    </a>
+                    <button
+                        id="ai-chat-btn"
+                        class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-600 transition hover:border-sky-200 hover:text-sky-700">
+                        AI分析
                     </button>
-                    <a href="<?= BASE_URL ?>api/health/csv/" class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-600 transition hover:border-sky-200 hover:text-sky-700">
+                    <a href="api/health/csv/" class="inline-flex items-center justify-center rounded-lg border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-600 transition hover:border-sky-200 hover:text-sky-700">
                         CSVダウンロード
                     </a>
                 </div>

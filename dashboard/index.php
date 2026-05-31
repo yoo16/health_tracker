@@ -16,7 +16,11 @@ function getDashboardData(int $userId): array
     $pdo = Database::getInstance();
 
     return [
-        'latest_health' => fetchOne($pdo, 'SELECT * FROM health_records ORDER BY recorded_at DESC LIMIT 1'),
+        'latest_health' => fetchOne(
+            $pdo,
+            'SELECT * FROM health_records WHERE user_id = :user_id ORDER BY recorded_at DESC LIMIT 1',
+            [':user_id' => $userId]
+        ),
         'latest_sleep' => fetchOne(
             $pdo,
             'SELECT * FROM sleep_records WHERE user_id = :user_id ORDER BY sleep_date DESC LIMIT 1',
@@ -163,7 +167,7 @@ function formatMinutes(?int $minutes): string
                             <?php foreach ($dashboard['recent_exercises'] as $exercise): ?>
                                 <div class="flex items-center justify-between rounded-lg bg-slate-50 px-4 py-3">
                                     <div>
-                                        <p class="text-sm font-semibold text-slate-800"><?= htmlspecialchars($exercise['exercise_type']) ?></p>
+                                        <a href="<?= BASE_URL ?>activity/edit.php?id=<?= $exercise['id'] ?>" class="text-sm font-semibold text-slate-800 transition hover:text-sky-700"><?= htmlspecialchars($exercise['exercise_type']) ?></a>
                                         <p class="mt-1 text-xs text-slate-400"><?= htmlspecialchars($exercise['exercise_date']) ?></p>
                                     </div>
                                     <div class="text-right">

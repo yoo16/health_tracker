@@ -20,8 +20,9 @@ $basePath = BASE_URL;
                 <a href="<?= $basePath ?>"            class="transition hover:text-white">ホーム</a>
                 <a href="<?= $basePath ?>health/add.php" class="transition hover:text-white">新規記録</a>
                 <a href="<?= $basePath ?>dashboard/"  class="transition hover:text-white">ダッシュボード</a>
+                <a href="<?= $basePath ?>activity/"   class="transition hover:text-white">アクティビティ</a>
                 <a href="<?= $basePath ?>health/" class="transition hover:text-white">履歴</a>
-                <a href="<?= $basePath ?>chart.php"   class="transition hover:text-white">グラフ</a>
+                <a href="<?= $basePath ?>health/chart.php"   class="transition hover:text-white">グラフ</a>
                 <a href="<?= $basePath ?>camera.php"  class="transition hover:text-white">カメラ診断</a>
             </nav>
         </div>

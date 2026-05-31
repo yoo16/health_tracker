@@ -4,11 +4,16 @@ require_once '../app.php';
 
 use Lib\Database;
 
+if (empty($_SESSION['user'])) {
+    header('Location: ' . BASE_URL . 'login/');
+    exit;
+}
+
 // TODO: GETリクエストから id を取得
 $id = $_GET['id'] ?? null;
 
 // id を渡してレコードを取得
-$record = find($id);
+$record = find($id, (int) $_SESSION['user']['id']);
 
 // 初期メッセージ
 $message = '';
@@ -21,16 +26,19 @@ if (isset($_SESSION['message'])) {
     unset($_SESSION['message']);
 }
 
-function find($id)
+function find($id, int $userId)
 {
     // データベース接続
     $pdo = Database::getInstance();
     // TODO: health_recordsテーブルから該当レコードを取得
-    $sql = "SELECT * FROM health_records WHERE id = :id";
+    $sql = "SELECT * FROM health_records WHERE id = :id AND user_id = :user_id";
     // プリペアドステートメントを作成
     $stmt = $pdo->prepare($sql);
     // SQLを実行
-    $stmt->execute([':id' => $id]);
+    $stmt->execute([
+        ':id' => $id,
+        ':user_id' => $userId,
+    ]);
     // 結果を取得
     $record = $stmt->fetch(PDO::FETCH_ASSOC);
     return $record;

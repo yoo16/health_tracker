@@ -1,6 +1,13 @@
 // メッセージ表示エリア
 const message = document.getElementById('message');
 
+const themeColor = "rgba(0, 148, 254, 0.6)"
+const upperNormalColor = "rgba(201, 135, 149, 0.15)"
+const lowerNormalColor = "rgba(99, 149, 255, 0.15)"
+const upperDangerColor = "rgba(249, 150, 150, 0.15)"
+const lowerDangerColor = "rgba(249, 150, 150, 0.15)"
+const dangerColor = "rgba(249, 150, 150, 0.6)"
+
 // ChartJS プラグインの登録
 Chart.register(window['chartjs-plugin-annotation']); 
 
@@ -47,7 +54,7 @@ function renderWeightChart(data) {
             datasets: [{
                 label: '体重 (kg)',
                 data: weights,
-                backgroundColor: 'rgba(36, 101, 166, 0.6)',
+                backgroundColor: themeColor,
                 borderWidth: 0,
                 fill: false,
                 tension: 0.3,
@@ -55,6 +62,7 @@ function renderWeightChart(data) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: { title: { display: true, text: '体重の推移' } },
             scales: { y: { beginAtZero: false } },
             scales: {
@@ -91,7 +99,7 @@ function renderHeartRateChart(data) {
             datasets: [{
                 label: '心拍数 (bpm)',
                 data: heartRates,
-                borderColor: 'rgb(249, 150, 150)',
+                borderColor: themeColor,
                 borderWidth: 2,
                 fill: false,
                 tension: 0.3,
@@ -99,6 +107,7 @@ function renderHeartRateChart(data) {
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: { display: true, text: '心拍数の推移' },
                 annotation: {
@@ -107,9 +116,9 @@ function renderHeartRateChart(data) {
                             type: 'line',
                             yMin: 60,
                             yMax: 60,
-                            borderColor: 'blue',
+                            borderColor: themeColor,
                             borderWidth: 1,
-                            borderDash: [6, 4], // 👈 点線指定
+                            borderDash: [6, 4],
                             label: {
                                 enabled: true,
                                 position: 'end',
@@ -120,9 +129,9 @@ function renderHeartRateChart(data) {
                             type: 'line',
                             yMin: 100,
                             yMax: 100,
-                            borderColor: 'red',
+                            borderColor: dangerColor,
                             borderWidth: 1,
-                            borderDash: [6, 4], // 👈 点線指定
+                            borderDash: [6, 4],
                             label: {
                                 enabled: true,
                                 position: 'end',
@@ -174,13 +183,14 @@ function renderBloodPressureChart(data) {
             datasets: [{
                 label: '血圧範囲 (mmHg)',
                 data: bpRanges,
-                backgroundColor: 'rgba(33, 130, 51, 0.6)',
-                borderColor: 'rgba(21, 79, 31, 0.6)',
+                backgroundColor: themeColor,
+                borderColor: themeColor,
                 borderWidth: 1,
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 title: {
                     display: true,
@@ -200,7 +210,7 @@ function renderBloodPressureChart(data) {
                             type: 'box',
                             yMin: 140,
                             yMax: 200,
-                            backgroundColor: 'rgba(201, 135, 149, 0.15)',
+                            backgroundColor: upperDangerColor,
                             borderWidth: 0,
                             label: {
                                 content: '高血圧域',
@@ -212,8 +222,8 @@ function renderBloodPressureChart(data) {
                         lowBloodPressureZone: {
                             type: 'box',
                             yMin: 0,
-                            yMax: 90,
-                            backgroundColor: 'rgba(99, 149, 255, 0.15)',
+                            yMax: 60,
+                            backgroundColor: lowerDangerColor,
                             borderWidth: 0,
                             label: {
                                 content: '低血圧域',

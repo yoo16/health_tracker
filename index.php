@@ -159,7 +159,7 @@ require_once 'app.php';
                     </a>
 
                     <!-- 食事を追知 -->
-                    <a href="chart.php"
+                    <a href="<?= BASE_URL ?>health/chart.php"
                         class="kenko-card group rounded-2xl border border-slate-200 bg-white p-7
                               hover:border-sky-200 hover:shadow-xl hover:shadow-sky-100/60">
                         <div class="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl

@@ -8,23 +8,29 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+if (empty($_SESSION['user'])) {
+    header('Location: ' . BASE_URL . 'login/');
+    exit;
+}
+
 // POSTデータの取得
 $posts = $_POST;
+$userId = (int) $_SESSION['user']['id'];
 
-if (hasDuplicate($posts['id'], $posts['recorded_at'])) {
+if (hasDuplicate($userId, $posts['id'], $posts['recorded_at'])) {
     // 重複があればエラーメッセージを表示
     $_SESSION['message'] = 'この日付の記録はすでに存在します。';
     header('Location: ' . BASE_URL . "health/edit.php?id={$posts['id']}");
     exit;
 } else {
     // 重複がなければデータを更新
-    update($posts['id'], $posts);
+    update($userId, $posts['id'], $posts);
     header('Location: ' . BASE_URL . 'health/');
     exit;
 }
 
 // データ更新
-function update($id, $data)
+function update(int $userId, $id, array $data)
 {
     // データベース接続
     $pdo = Database::getInstance();
@@ -36,7 +42,7 @@ function update($id, $data)
                 systolic = :systolic, 
                 diastolic = :diastolic, 
                 recorded_at = :recorded_at 
-            WHERE id = :id";
+            WHERE id = :id AND user_id = :user_id";
     // プリペアドステートメントを作成
     $stmt = $pdo->prepare($sql);
     // SQLを実行
@@ -47,23 +53,25 @@ function update($id, $data)
         ':diastolic' => $data['diastolic'],
         ':recorded_at' => $data['recorded_at'],
         ':id' => $id,
+        ':user_id' => $userId,
     ]);
 }
 
 // 重複チェック
-function hasDuplicate($id, $recorded_at)
+function hasDuplicate(int $userId, $id, $recorded_at)
 {
     // データベース接続
     $pdo = Database::getInstance();
     // TODO: reported_at が重複しているか確認 ただし、現在のレコードは除外する
     $sql = "SELECT id 
         FROM health_records 
-        WHERE recorded_at = :recorded_at AND id != :id";
+        WHERE user_id = :user_id AND recorded_at = :recorded_at AND id != :id";
     // プリペアドステートメントを作成
     $stmt = $pdo->prepare($sql);
 
     // TODO: SQLを実行
     $stmt->execute([
+        ':user_id' => $userId,
         ':recorded_at' => $recorded_at,
         ':id' => $id,
     ]);

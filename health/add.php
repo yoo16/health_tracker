@@ -2,7 +2,10 @@
 // 共通処理を読み込む
 require_once '../app.php';
 
-use Lib\Database;
+if (empty($_SESSION['user'])) {
+    header('Location: ' . BASE_URL . 'login/');
+    exit;
+}
 
 // 初期値
 $record = [
