@@ -1,5 +1,5 @@
 INSERT INTO users (id, name, email, password_hash) VALUES
-(1, 'テストユーザー', 'test@example.com', '$2y$12$WhA2BgVK6vFurRqULSVgEOlQV4EcGECyRdgETaGSE1CxNEJFzXheq');
+(1, 'テストユーザー', 'test@test.com', '$2y$10$GFrmT/WmEDRD6eKi.05H/uxgrgfHrWadmME4m2nFaxfagd.x74FTq');
 
 INSERT INTO health_records (user_id, weight, heart_rate, systolic, diastolic, recorded_at) VALUES
 (1, 62.5, 72, 120, 78, '2025-05-01'),

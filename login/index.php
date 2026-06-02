@@ -89,6 +89,12 @@ if (empty($_SESSION['csrf_token'])) {
                         </a>
                     </div>
                 </form>
+                <div>
+                    <ul>
+                        <li>EMail: test@test.com</li>
+                        <li>パスワード: password123</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>
